@@ -1,7 +1,7 @@
 {
-  "name": "mwoffliner-caching-proxy",
+  "name": "mwoffliner-article-caching-proxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "A MITM proxy to cache articles served to mwoffliner",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "dev": "nodemon"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",

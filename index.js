@@ -49,5 +49,13 @@ app.all('*', (req, res) => {
   });
 });
 
-console.log('Ready & Listening on Port 3000')
-app.listen('3000');
+console.log(`
+  Ready & Listening on Port 1271
+  How to use:
+    * Always restart this server each time mwUrl changes
+    * Prefix your mwUrl parameter with "http://localhost:1271/
+      --mwUrl="https://en.wikipedia.org/"
+      becomes...
+      --mwUrl="http://localhost:1271/https://en.wikipedia.org/"
+`)
+app.listen('1271');
