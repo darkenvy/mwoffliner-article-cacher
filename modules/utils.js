@@ -1,5 +1,5 @@
 const { max } = require('lodash');
-const Timer = require('./modules/timer');
+const Timer = require('./timer');
 const RollingAverage = require('./rolling-average');
 
 const downloadAverage = new RollingAverage();

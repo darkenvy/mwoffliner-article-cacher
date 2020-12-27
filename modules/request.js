@@ -2,6 +2,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
+const { CACHE_FOLDER } = require('./constants');
 const {
   printCurrentLine,
   printNextLine,
@@ -44,9 +45,12 @@ function request(url, filename, req, res) {
     });
   })
   .catch(error => {
+    const CACHING_PROXY_ERROR = 'Error in caching proxy';
     const url = _.get(error, 'config.url', '');
     const statusCode = _.get(error, 'response.status', 500);
-    const statusText = _.get(error, 'response.statusText', 'Error in caching proxy');
+    const statusText = _.get(error, 'response.statusText', CACHING_PROXY_ERROR);
+
+    if (statusText === CACHING_PROXY_ERROR) console.log('Detailed Error:', error);
     
     printNextLine(`500: ${url} - ${statusText}`);
     printCurrentLine('');

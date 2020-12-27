@@ -5,7 +5,7 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
-
+const { CACHE_FOLDER } = require('./modules/constants');
 const request = require('./modules/request');
 const {
   constructUrl,
@@ -16,8 +16,6 @@ const {
 } = require('./modules/utils');
 
 const app = express();
-
-const CACHE_FOLDER = path.join(__dirname, 'cache');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 if (!fs.existsSync(CACHE_FOLDER)) fs.mkdirSync(CACHE_FOLDER);
@@ -31,24 +29,25 @@ app.all('*', (req, res) => {
   const filepath = path.join(CACHE_FOLDER, filename);
 
   if (method === 'POST') {
+    const errorFileList = path.join(__dirname, 'error.log');
     printNextLine(`mwOffliner doesnt do POSTs. ${url}`);
     printCurrentLine('');
-    const errorFileList = path.join(__dirname, 'error.log');
     fs.appendFile(errorFileList, `Post occured on: ${url}\n`, 'utf8');
   }
 
   timer.start(url);
 
-  if (fs.existsSync(filepath)) { // averages less than 1ms time
-    res.sendFile(filepath, (err) => { // sending the file takes the most time
-      const delta = timer.end(url);
-      cacheAverage.add(delta);
-      printCurrentLine(`200 = ${delta}ms : ${url}`);
-    });
-  } else {
+  if (!fs.existsSync(filepath)) { // averages less than 1ms time
     request(url, filename, req, res);
+    return;
   }
+
+  res.sendFile(filepath, (err) => { // sending the file takes the most time
+    const delta = timer.end(url);
+    cacheAverage.add(delta);
+    printCurrentLine(`200 = ${delta}ms : ${url}`);
+  });
 });
 
-console.log('listening on port 3000')
+console.log('Ready & Listening on Port 3000')
 app.listen('3000');
