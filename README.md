@@ -5,6 +5,15 @@ This is a Man-in-the-Middle proxy which caches articles that are being served to
 - saves time in the event of a halt/crash of mwOffliner
 - saves time in subsequent zim creation that vary in sizes (100k -> 50k, ect)
 - debugging
+- When used in conjunction with the s3 cache, time savings can be substantial
+
+# Time Savings
+| article count | no cache time | with cache time (s3+proxy)  |
+|---------------|---------------|-----------------------------|
+| 10            | 00:00:40      | 00:00:13                    |
+| 1k            | 00:27:54      |                             |
+| 10k           | 05:13:00      | 00:57:49                    |
+|               |               |                             |
 
 # requirements
 - node v12+
