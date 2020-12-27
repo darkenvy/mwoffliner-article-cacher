@@ -17,12 +17,17 @@ This is a Man-in-the-Middle proxy which caches articles that are being served to
 
 # Interface
 The terminal output is as follows:
+
 `[dl: 0ms|ca: 0ms:#0] 200 = 0ms : https://en.wikipedia.org/`
 
 `dl` represents the average download time from the internet for all resources of inbound traffic
+
 `ca` represents the average serving time from a cached resource on the hdd.
+
 `#` the number of total requests to this proxy
+
 `200` is the response code for the GET request
+
 `=` means the current resource was served from cache; `-` means the resource was served from the internet. 
 
 # requirements
